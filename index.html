@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faiba by JTL - Fast & Affordable Data</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #f4f7f6;
+        }
+
+        /* JTL Brand Colors */
+        :root {
+            --jtl-green: #00a651;        /* Primary JTL Green */
+            --jtl-dark: #2d3e50;          /* Dark Gray/Blue from footer/headings */
+            --jtl-light-bg: #f8f9fa;      /* Light background */
+            --jtl-white: #ffffff;
+            --jtl-accent: #e67e22;         /* Orange accent for highlights */
+            --jtl-border: #e0e0e0;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--jtl-white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 3px solid var(--jtl-green);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--jtl-dark);
+        }
+
+        .logo span {
+            color: var(--jtl-green);
+        }
+
+        .nav-links a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: var(--jtl-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--jtl-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--jtl-dark) 0%, #1a2b3a 100%);
+            color: white;
+            padding: 8rem 5% 5rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 span {
+            color: var(--jtl-green);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Packages Section */
+        .packages {
+            padding: 5rem 5%;
+            background: var(--jtl-light-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--jtl-dark);
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--jtl-green);
+            margin: 1rem auto;
+        }
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .package-card {
+            background: var(--jtl-white);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--jtl-border);
+        }
+
+        .package-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,166,81,0.15);
+            border-color: var(--jtl-green);
+        }
+
+        .package-card.popular::before {
+            content: "Best Seller";
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--jtl-green);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .package-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            color: var(--jtl-dark);
+        }
+
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--jtl-green);
+            margin: 1rem 0;
+        }
+
+        .package-validity {
+            color: #777;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .package-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .package-features li {
+            margin: 0.6rem 0;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .package-features i {
+            color: var(--jtl-green);
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--jtl-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,166,81,0.3);
+        }
+
+        .btn:hover {
+            background: #008c44;
+            transform: scale(1.03);
+            box-shadow: 0 6px 15px rgba(0,166,81,0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--jtl-green);
+            color: var(--jtl-green);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--jtl-green);
+            color: white;
+        }
+
+        /* Forms Section */
+        .forms-section {
+            padding: 5rem 5%;
+            background: var(--jtl-white);
+        }
+
+        .forms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .form-container {
+            background: var(--jtl-light-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--jtl-border);
+        }
+
+        .form-container h2 {
+            margin-bottom: 1.5rem;
+            color: var(--jtl-dark);
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .form-container h2:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--jtl-green);
+            margin: 0.8rem auto 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--jtl-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--jtl-border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: var(--jtl-white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--jtl-green);
+            box-shadow: 0 0 0 3px rgba(0,166,81,0.1);
+        }
+
+        /* Confirmation Page */
+        .confirmation-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .confirmation-content {
+            background: var(--jtl-white);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            animation: slideIn 0.4s ease;
+            border-top: 8px solid var(--jtl-green);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .confirmation-content h2 {
+            color: var(--jtl-dark);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .reference-number {
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: #f0f7f2;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            color: var(--jtl-dark);
+            border: 1px dashed var(--jtl-green);
+            letter-spacing: 1px;
+        }
+
+        .checkmark {
+            font-size: 5rem;
+            color: var(--jtl-green);
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 5%;
+            background: var(--jtl-dark);
+            color: white;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-container h2 {
+            margin-bottom: 1rem;
+            font-size: 2.2rem;
+        }
+
+        .contact-container h2:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--jtl-green);
+            margin: 1rem auto;
+        }
+
+        .contact-container input,
+        .contact-container textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .contact-container input::placeholder,
+        .contact-container textarea::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .contact-container input:focus,
+        .contact-container textarea:focus {
+            outline: none;
+            border-color: var(--jtl-green);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .contact-info {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a2b3a;
+            color: rgba(255,255,255,0.8);
+            text-align: center;
+            padding: 2rem;
+            border-top: 3px solid var(--jtl-green);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .forms-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .package-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Faiba<span>Connect</span></div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#packages">Packages</a>
+                <a href="#order">Order</a>
+                <a href="#agent">Become an Agent</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>Welcome to <span>Faiba by JTL</span></h1>
+        <p>Get your FREE Faiba line with our amazing data packages. Fast, reliable, and affordable internet for everyone!</p>
+    </section>
+
+    <section id="packages" class="packages">
+        <h2 class="section-title">Our Data Packages</h2>
+        <div class="package-grid">
+            <div class="package-card" onclick="selectPackage('3GB - 3 Days', 85)">
+                <h3>Starter Pack</h3>
+                <div class="package-price">KES 85</div>
+                <div class="package-validity">Valid for 3 days</div>
+                <ul class="package-features">
+                    <li><i>✓</i> 3GB Data</li>
+                    <li><i>✓</i> Free Faiba Line</li>
+                    <li><i>✓</i> Perfect for first-timers</li>
+                </ul>
+                <button class="btn">Select Package</button>
+            </div>
+
+            <div class="package-card popular" onclick="selectPackage('10GB - 7 Days', 200)">
+                <h3>Popular Pack</h3>
+                <div class="package-price">KES 200</div>
+                <div class="package-validity">Valid for 7 days</div>
+                <ul class="package-features">
+                    <li><i>✓</i> 10GB Data</li>
+                    <li><i>✓</i> Free Faiba Line</li>
+                    <li><i>✓</i> Best value</li>
+                </ul>
+                <button class="btn">Select Package</button>
+            </div>
+
+            <div class="package-card" onclick="selectPackage('15GB - 10 Days', 400)">
+                <h3>Heavy User</h3>
+                <div class="package-price">KES 400</div>
+                <div class="package-validity">Valid for 10 days</div>
+                <ul class="package-features">
+                    <li><i>✓</i> 15GB Data</li>
+                    <li><i>✓</i> Free Faiba Line</li>
+                    <li><i>✓</i> Extra 1GB bonus</li>
+                </ul>
+                <button class="btn">Select Package</button>
+            </div>
+
+            <div class="package-card" onclick="selectPackage('40GB - 30 Days', 850)">
+                <h3>Ultimate Pack</h3>
+                <div class="package-price">KES 850</div>
+                <div class="package-validity">Valid for 30 days</div>
+                <ul class="package-features">
+                    <li><i>✓</i> 40GB Data</li>
+                    <li><i>✓</i> Free Faiba Line</li>
+                    <li><i>✓</i> Unlimited night data</li>
+                </ul>
+                <button class="btn">Select Package</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="order" class="forms-section">
+        <h2 class="section-title">Order Your Faiba Line & Data</h2>
+        <div class="forms-grid">
+            <div class="form-container">
+                <h2>New Customer Registration</h2>
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" placeholder="07XX XXX XXX" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Location *</label>
+                        <input type="text" id="location" placeholder="Estate, Building, House No." required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="package">Select Package *</label>
+                        <select id="package" required>
+                            <option value="">Choose a package</option>
+                            <option value="3GB-3Days-85">3GB for 3 Days - KES 85</option>
+                            <option value="10GB-7Days-200">10GB for 7 Days - KES 200</option>
+                            <option value="15GB-10Days-400">15GB for 10 Days - KES 400</option>
+                            <option value="40GB-30Days-850">40GB for 30 Days - KES 850</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">Submit Order</button>
+                </form>
+            </div>
+
+            <div class="form-container">
+                <h2>Become an Agent</h2>
+                <p style="text-align: center; margin-bottom: 1.5rem; color: #666;">Join our agent network and earn commissions!</p>
+                <form id="agentForm">
+                    <div class="form-group">
+                        <label for="agentName">Full Name *</label>
+                        <input type="text" id="agentName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agentEmail">Email Address *</label>
+                        <input type="email" id="agentEmail" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agentPhone">Phone Number *</label>
+                        <input type="tel" id="agentPhone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agentLocation">Location *</label>
+                        <input type="text" id="agentLocation" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="startDate">Preferred Start Date *</label>
+                        <input type="date" id="startDate" required>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">Apply as Agent</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <h2>Contact Us</h2>
+            <p style="margin-bottom: 2rem;">Have questions? We're here to help!</p>
+            <form id="contactForm">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="4" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+            <div class="contact-info">
+                <p>📞 +254 700 000 000</p>
+                <p>✉️ support@faiba.co.ke</p>
+                <p>📍 Nairobi, Kenya</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="confirmation-page">
+        <div class="confirmation-content">
+            <div class="checkmark">✓</div>
+            <h2>Order Confirmed!</h2>
+            <p>Thank you for choosing Faiba by JTL</p>
+            <div class="reference-number" id="referenceNumber"></div>
+            <p>We'll contact you within 24 hours to process your free Faiba line and data package.</p>
+            <button class="btn" onclick="closeConfirmation()" style="margin-top: 1.5rem;">Close</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Faiba by JTL. All rights reserved. | Fast & Affordable Internet for Everyone</p>
+    </footer>
+
+    <script>
+        // Google Sheets Web App URLs (Replace with your actual URLs after deployment)
+        const ORDER_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyx-5HzT80aBxQUhBmNzbrQJ68g7j5OMm1lDicKv3WKSBCmER1v5NLHJodWd6dX-DZU/exec';
+        const AGENT_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyx-5HzT80aBxQUhBmNzbrQJ68g7j5OMm1lDicKv3WKSBCmER1v5NLHJodWd6dX-DZU/exec';
+        const CONTACT_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyx-5HzT80aBxQUhBmNzbrQJ68g7j5OMm1lDicKv3WKSBCmER1v5NLHJodWd6dX-DZU/exec';
+
+        // Function to generate reference number
+        function generateReference() {
+            const timestamp = Date.now().toString(36);
+            const random = Math.random().toString(36).substr(2, 5);
+            return `FAIBA-${timestamp}-${random}`.toUpperCase();
+        }
+
+        // Function to show confirmation
+        function showConfirmation(reference) {
+            document.getElementById('referenceNumber').textContent = reference;
+            document.getElementById('confirmationModal').style.display = 'flex';
+        }
+
+        // Function to close confirmation
+        function closeConfirmation() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        }
+
+        // Function to select package from cards
+        function selectPackage(packageName, price) {
+            const packageSelect = document.getElementById('package');
+            for (let option of packageSelect.options) {
+                if (option.text.includes(packageName.split(' - ')[0])) {
+                    option.selected = true;
+                    break;
+                }
+            }
+            document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Function to submit to Google Sheets
+        async function submitToGoogleSheet(url, data) {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                return true;
+            } catch (error) {
+                console.error('Error:', error);
+                return false;
+            }
+        }
+
+        // Order Form Submission
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<span class="spinner"></span>Processing...';
+            submitBtn.disabled = true;
+
+            const formData = {
+                type: 'order',
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                location: document.getElementById('location').value,
+                package: document.getElementById('package').value,
+                reference: generateReference(),
+                timestamp: new Date().toISOString()
+            };
+
+            const success = await submitToGoogleSheet(ORDER_SHEET_URL, formData);
+            
+            if (success) {
+                showConfirmation(formData.reference);
+                this.reset();
+            } else {
+                alert('There was an error submitting your order. Please try again.');
+            }
+
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
+
+        // Agent Form Submission
+        document.getElementById('agentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<span class="spinner"></span>Processing...';
+            submitBtn.disabled = true;
+
+            const formData = {
+                type: 'agent',
+                fullName: document.getElementById('agentName').value,
+                email: document.getElementById('agentEmail').value,
+                phone: document.getElementById('agentPhone').value,
+                location: document.getElementById('agentLocation').value,
+                startDate: document.getElementById('startDate').value,
+                reference: generateReference(),
+                timestamp: new Date().toISOString()
+            };
+
+            const success = await submitToGoogleSheet(AGENT_SHEET_URL, formData);
+            
+            if (success) {
+                alert('Application submitted successfully! We will contact you soon.');
+                this.reset();
+            } else {
+                alert('There was an error submitting your application. Please try again.');
+            }
+
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
+
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
+            submitBtn.disabled = true;
+
+            const inputs = this.querySelectorAll('input, textarea');
+            const formData = {
+                type: 'contact',
+                name: inputs[0].value,
+                email: inputs[1].value,
+                message: inputs[2].value,
+                timestamp: new Date().toISOString()
+            };
+
+            const success = await submitToGoogleSheet(CONTACT_SHEET_URL, formData);
+            
+            if (success) {
+                alert('Message sent successfully! We will respond within 24 hours.');
+                this.reset();
+            } else {
+                alert('There was an error sending your message. Please try again.');
+            }
+
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
